@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam</title>
+</head>
+<body>
+<form action="{% url 'comparison' %}" method="POST">
+{#    <input type="hidden" name="exam1-name" value="{{ exam1.name }}">#}
+    <input type="hidden" name="ans-id" value="{{ ans_sheet.id }}">
+    {% csrf_token %}
+    {% for que, dict in questiondir.items %}
+        <fieldset id="{{ que }}">
+            <table>
+                <tr align="left">
+                    <th><b>Question:</b></th>
+                    <th>
+                        <script>
+                            function play{{ que }}(){
+                                document.getElementById('audio:{{ que }}').play();
+                                document.getElementById('div:{{ que }}').style.display = 'none';
+                                document.getElementById('a_{{ que }}').innerHTML = 'Played';
+                            }
+                        </script>
+                        <div id="div:{{ que }}">
+                            <audio id="audio:{{ que }}">
+                            <source src="{{ MEDIA_URL }}listening/{{ que }}.mp3" type="audio/mp3">
+                            </audio>
+                            <button onclick="play{{ que }}()" type="button">play</button>
+                        </div>
+                        <a id="a_{{ que }}"></a>
+                    </th>
+                </tr>
+                <tr>
+                    <th><b>Answer:</b></th>
+                    <th align="left">
+                        {% for ans_key, ans_value in dict.items %}
+                            <input type="radio" id="{{ ans_key }}" value="{{ ans_key }}" name="{{ que }}">
+                            <label for="{{ ans_key }}">{{ ans_value }}</label><br>
+                        {% endfor %}
+                    </th>
+                </tr>
+            </table>
+        </fieldset>
+    {% endfor %}
+    <input type="submit" value="Send" onclick="location.href='{% url 'comparison' %}'">
+</form>
+</body>
+</html>

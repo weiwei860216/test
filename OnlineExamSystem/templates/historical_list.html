@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>試卷列表</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Hi {{ account }}</th>
+            <th>{{ answer_list }}</th>
+        </tr>
+        <tr>
+            <th>試卷</th>
+        </tr>
+        {% for h in h_list %}
+            <tr>
+                <th><a href="{% url 'h_profile' id=h.id %}">{{ h.historical }}</a></th>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

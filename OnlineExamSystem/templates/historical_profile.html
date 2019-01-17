@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>試題:{{ id }}題目</title>
+</head>
+<body>
+<form action="/" method="POST">
+    {% for que, anslist in q_dir.items %}
+        <fieldset id="{{ que }}">
+            <table>
+                <tr align="left">
+                    <th><b>Question:</b></th>
+                    <th>
+                        <script>
+                            function play{{ que }}(){
+                                document.getElementById('audio:{{ que }}').play();
+                            }
+                        </script>
+                        <div id="div:{{ que }}">
+                            <audio id="audio:{{ que }}">
+                            <source src="{{ MEDIA_URL }}listening/{{ que }}.mp3" type="audio/mp3">
+                            </audio>
+                            <button onclick="play{{ que }}()" type="button">play</button>
+                        </div>
+                        <a id="a_{{ que }}"></a>
+                    </th>
+                </tr>
+                <tr>
+                    <th><b>Answer:</b></th>
+                    <th align="left">
+                        {% for ans in anslist %}
+                            {% if not forloop.last %}
+                                {% ifequal ans anslist.4 %}
+                                    <label style="color: red">{{ ans }}</label><br>
+                                {% else %}
+                                    <label>{{ ans }}</label><br>
+                                {% endifequal %}
+                            {% endif %}
+                        {% endfor %}
+                    </th>
+                </tr>
+            </table>
+        </fieldset>
+    {% endfor %}
+{#    <input type="submit" value="Send">#}
+</form>
+</body>
+</html>

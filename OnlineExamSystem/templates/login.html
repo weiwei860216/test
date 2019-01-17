@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1><b>Login</b></h1>
+
+    <p style="color: darkred;">{{ error }}</p>
+
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <input type="submit" value="Login" onclick="location.href='{% url 'home' %}'">
+    </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>檢閱聽力題目</title>
+</head>
+<body>
+    <h1><b>檢閱聽力題目</b></h1>
+
+    <p style="color: darkred;">{{ error }}</p>
+
+    <form action="{% url 'upload_listening' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <input type="submit" value="建立">
+        <input type="button" value="取消" onclick="location.href='{% url 'lq_list' %}'">
+    </form>
+</body>
+</html>

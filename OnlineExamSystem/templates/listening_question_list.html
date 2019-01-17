@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聽力題目列</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>題目</th>
+            <th>操作</th>
+        </tr>
+        {% for lq in lq_list %}
+            <tr>
+                <th><a href="{% url 'lq_profile' audio_name=lq.audio_name %}">{{ lq.audio_name }}</a></th>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
